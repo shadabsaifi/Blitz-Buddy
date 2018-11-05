@@ -1,11 +1,12 @@
 module.exports =  {
   
   INTERNAL_SERVER_ERROR:"Internal server error.",
-  USER_NOT_EXITS:"User does't exits.",
-  ADMIN_NOT_EXITS:"Admin does't exits.",
-  EMAIL_ALREADY_EXITS:"Email already exits.",
-  PHONE_ALREADY_EXITS:"Mobile number already exits.",
-  PHONE_NOT_EXITS:"Invalid credentials.",
+
+  ADMIN_NOT_EXISTS:"Admin does't exists.",
+  USER_NOT_EXISTS:"User does't exists.",
+  EMAIL_ALREADY_EXISTS:"Email already exists.",
+  PHONE_ALREADY_EXISTS:"Mobile number already exists.",
+  PHONE_NOT_EXISTS:"Invalid credentials.",
   PASSWORD_NOT_MATCH:"Invalid credentials.",
   SUCCESSFULLY_LOGIN:"You have successfully login.",
   SUCCESSFULLY_SIGNUP:"You have successfully signup.",
@@ -17,10 +18,19 @@ module.exports =  {
   PASSWORD_SUCCESSFULLY_CHANGE:"You have successfully change password.",
   SECURE_KEY:"Invalid secure key.",
   IMAGE_UPLOAD_ERROR:"Error while uploading image.",
-  SUCCESS:"Success.",
+  SUCCESS:"success.",
   PROFILE_SUCCESSFULLY_UPDATE:"Profile successfully update.",
+  
+  // static content message
   CONTENT_SUUCCESSFULLY_DELETED:"Content successfully deleted.",
   CONTENT_NOT_FOUND:"Conten not found.",
-  CONTENT_SUCCESSFULLY_UPDATED:"Content successfully updated."
+  CONTENT_SUCCESSFULLY_UPDATED:"Content successfully updated.",
+  
+  // tank message
+  TANK_ALREADY_EXISTS:"Tank already exists.",
+  TANK_SUCCESSFULLY_ADDED:"Tank successfully added.",
+  TANK_NOT_EXISTS:"Tank does't exists.",
+  TANK_SUCCESSFULLY_DELETED:"Tank successfully deleted.",
+  TANK_SUCCESSFULLY_UPDATE:"Tank successfully update.",
 
 }

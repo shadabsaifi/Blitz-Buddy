@@ -19,9 +19,9 @@ let signup = (req, res)=>{
             .then(user=>{
                 if(user){
                     if(user.email == email)
-                        return common.response(res, code.ALREADY_EXIST, message.EMAIL_ALREADY_EXITS);
+                        return common.response(res, code.ALREADY_EXIST, message.EMAIL_ALREADY_EXISTS);
                     else
-                        return common.response(res, code.ALREADY_EXIST, message.PHONE_ALREADY_EXITS);
+                        return common.response(res, code.ALREADY_EXIST, message.PHONE_ALREADY_EXISTS);
                 }
                 else{
                     common.sendOTP(constant.OTP, countryCode, phone)
@@ -66,7 +66,7 @@ let login = (req, res)=>{
             User.findOne(query)
             .lean().then(user=>{
                 if(!user)
-                    return common.response(res, code.NOT_FOUND, message.PHONE_NOT_EXITS)
+                    return common.response(res, code.NOT_FOUND, message.PHONE_NOT_EXISTS)
                 else{
                     common.compareHash(password, user.password, (err, match)=>{
                         if(!match)
@@ -100,7 +100,7 @@ let verifyOTP = (req, res)=>{
             User.findById(userId)
             .lean().then(user=>{
                 if(!user)
-                    return common.response(res, code.NOT_FOUND, message.USER_NOT_EXITS);
+                    return common.response(res, code.NOT_FOUND, message.USER_NOT_EXISTS);
                 else{
                     if(user.status != "ACTIVE"){
                         if(user.otp == otp){
@@ -151,7 +151,7 @@ let forgotPassword = (req, res)=>{
                     return common.response(res, code.NEW_RESOURCE_CREATED, message.OTP_SEND, {_id});
                 }
                 else
-                    return common.response(res, code.NOT_FOUND, message.USER_NOT_EXITS);
+                    return common.response(res, code.NOT_FOUND, message.USER_NOT_EXISTS);
             }, err=>{
                 return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
             })        
@@ -180,7 +180,7 @@ let resendOTP = (req, res)=>{
                     return common.response(res, code.NEW_RESOURCE_CREATED, message.OTP_SEND, {_id});
                 }
                 else
-                    return common.response(res, code.NOT_FOUND, message.USER_NOT_EXITS);
+                    return common.response(res, code.NOT_FOUND, message.USER_NOT_EXISTS);
             }, err=>{
                 return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
             })        
@@ -203,7 +203,7 @@ let resetPassword = (req, res)=>{
                     User.findById(userId)
                     .then(user=>{
                         if(!user)
-                            return common.response(res, code.NOT_FOUND, message.USER_NOT_EXITS);
+                            return common.response(res, code.NOT_FOUND, message.USER_NOT_EXISTS);
                         else{
                             if(user.secureKey != secureKey)
                                 return common.response(res, code.BAD_REQUEST, message.SECURE_KEY);
@@ -214,7 +214,7 @@ let resetPassword = (req, res)=>{
                                 if(user)
                                     return common.response(res, code.NEW_RESOURCE_CREATED, message.PASSWORD_SUCCESSFULLY_CHANGE);
                                 else
-                                    return common.response(res, code.NOT_FOUND, message.USER_NOT_EXITS);
+                                    return common.response(res, code.NOT_FOUND, message.USER_NOT_EXISTS);
                                 }, err=>{
                                     return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
                                 })
@@ -244,7 +244,7 @@ let getUserDetail = (req, res)=>{
                 if(user)
                     return common.response(res, code.EVERYTHING_IS_OK, message.SUCCESS, user);
                 else
-                    return common.response(res, code.NOT_FOUND, message.USER_NOT_EXITS);
+                    return common.response(res, code.NOT_FOUND, message.USER_NOT_EXISTS);
             })
         }
     }, err=>{
@@ -275,7 +275,7 @@ let editUserProfile = (req, res)=>{
                         if(user)
                             return common.response(res, code.EVERYTHING_IS_OK, message.PROFILE_SUCCESSFULLY_UPDATE);
                         else
-                            return common.response(res, code.NOT_FOUND, message.USER_NOT_EXITS);
+                            return common.response(res, code.NOT_FOUND, message.USER_NOT_EXISTS);
                     }, err=>{
                         return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR,err)     
                     })      
