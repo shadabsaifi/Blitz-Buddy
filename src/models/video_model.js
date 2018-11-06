@@ -3,25 +3,23 @@ var mongoosePaginate = require('mongoose-paginate');
 
 var Schema = mongoose.Schema;
 
-var TankSchema = new Schema({
+var VideoSchema = new Schema({
 
-    tankName :{ 
-        type:String
-    },
-
-    image:{
+    title:{
         type:String
     },
 
     description:{
         type:String
+    },
+
+    link:{
+        type:String
     }
 
 })
 
-TankSchema.plugin(mongoosePaginate);
+VideoSchema.plugin(mongoosePaginate);
+var videoModel = mongoose.model('video', VideoSchema, 'video');
 
-var TankModel = mongoose.model('tank', TankSchema, 'tank');
-
-module.exports = TankModel;
-
+module.exports = videoModel;

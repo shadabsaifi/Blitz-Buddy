@@ -23,6 +23,12 @@ module.exports = {
     addTank:['tankName', 'image', 'description'],
     getTankDetail:['tankId'],
     deleteTank:['tankId'],
-    editTankDetail:['tankId']
+    editTankDetail:['tankId'],
+
+    //video validation
+    addVideo:['title', 'link', 'description'],
+    getVideoDetail:['videoId'],
+    deleteVideo:['videoId'],
+    editVideoDetail:['videoId']
 
 }

@@ -33,4 +33,11 @@ module.exports =  {
   TANK_SUCCESSFULLY_DELETED:"Tank successfully deleted.",
   TANK_SUCCESSFULLY_UPDATE:"Tank successfully update.",
 
+  // video message
+  VIDEO_ALREADY_EXISTS:"Video already exists.",
+  VIDEO_SUCCESSFULLY_ADDED:"Video successfully added.",
+  VIDEO_NOT_EXISTS:"Video does't exists.",
+  VIDEO_SUCCESSFULLY_DELETED:"Video successfully deleted.",
+  VIDEO_SUCCESSFULLY_UPDATE:"Video successfully update.",
+  
 }
