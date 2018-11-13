@@ -1,22 +1,21 @@
-var StaticContent = require('../models/static_model');
+var GarageModel = require('../models/garage_model');
 var common = require('../common/common');
 var code = require('../common/responseCode');
 var message = require('../common/responseMessage');
 var fileds = require('../common/required');
 
+let getGarage = (req, res)=>{
 
-let getStaticContent = (req, res)=>{
-
-    let { staticType } = req.body;
-    let given = { staticType }
+    let { garageType } = req.body;
+    let given = { garageType }
     let options = { createdAt:1, updatedAt:1 };
-    options[staticType] = 1;
-    common.checkKeyExist(given, fileds.getStaticContent)
+    options[garageType] = 1;
+    common.checkKeyExist(given, fileds.getGarage)
     .then(result=>{
         if(result.length)
             return common.response(res, code.KEY_MISSING, result[0]);
         else{
-            StaticContent.findOne({}, options)
+            GarageModel.findOne({}, options)
             .then((result) => {
                 return common.response(res, code.EVERYTHING_IS_OK, message.SUCCESS, result);
             }, err=>{
@@ -29,64 +28,60 @@ let getStaticContent = (req, res)=>{
     })
 }
 
-let updateStaticContent = (req, res)=>{
+let updateGarage = (req, res)=>{
 
-    let { staticType, data } = req.body;
-    let given = { staticType, data };
+    let { garageType, data } = req.body;
+    let given = { garageType, data };
     let options = {  };
-    options[staticType] = data;
-    common.checkKeyExist(given, fileds.updateStaticContent)
+    options[garageType] = data;
+    common.checkKeyExist(given, fileds.updateGarage)
     .then(result=>{
         if(result.length)
             return common.response(res, code.KEY_MISSING, result[0]);
         else{
-            StaticContent.update({}, options)
-            .then(static=>{
-                if(static)
-                    return common.response(res, code.EVERYTHING_IS_OK, message.CONTENT_SUCCESSFULLY_UPDATED)
+            GarageModel.update({}, options)
+            .then(garage=>{
+                if(garage)
+                    return common.response(res, code.EVERYTHING_IS_OK, message.GARAGE_SUCCESSFULLY_UPDATED)
                 else
-                    return common.response(res, code.NOT_FOUND, message.CONTENT_NOT_FOUND);
+                    return common.response(res, code.NOT_FOUND, message.GARAGE_NOT_FOUND);
             }, err=>{
                 return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)
             })
         }
     })
     .catch((err)=>{ return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
-
-
 }
 
-let deleteStaticContent = (req, res)=>{
+let deleteGarage = (req, res)=>{
 
-    let { staticType } = req.body;
-    let given = { staticType };
+    let { garageType } = req.body;
+    let given = { garageType };
     let options = {  };
-    options[staticType] = "";
-    common.checkKeyExist(given, fileds.deleteStaticContent)
+    options[garageType] = "";
+    common.checkKeyExist(given, fileds.deleteGarage)
     .then(result=>{
         if(result.length)
             return common.response(res, code.KEY_MISSING, result[0]);
         else{
-            StaticContent.update({}, options)
-            .then(static=>{
-                if(static)
-                    return common.response(res, code.NEW_RESOURCE_CREATED, message.CONTENT_SUUCCESSFULLY_DELETED)
+            GarageModel.update({}, options)
+            .then(garage=>{
+                if(garage)
+                    return common.response(res, code.NEW_RESOURCE_CREATED, message.GARAGE_SUUCCESSFULLY_DELETED)
                 else
-                    return common.response(res, code.NOT_FOUND, message.CONTENT_NOT_FOUND);
+                    return common.response(res, code.NOT_FOUND, message.GARAGE_NOT_FOUND);
             }, err=>{
                 return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)
             })
         }
     })
     .catch((err)=>{ return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
-
-
 }
+
 
 module.exports = {
 
-    getStaticContent,
-    updateStaticContent,
-    deleteStaticContent
-
+    getGarage,
+    updateGarage,
+    deleteGarage
 }

@@ -3,6 +3,8 @@ module.exports = {
     // admin Validation
     getAdminDetail:['adminId'],
     editAdminProfile:['adminId'],
+    blockUnblockUser:['userId', 'requestType'],
+    deleteUser:['userId', 'requestType'],
 
     //user validation
     signup:['fullName', 'countryCode', 'phone', 'email', 'password'],
@@ -15,9 +17,9 @@ module.exports = {
     editUserProfile:['userId'],
     
     //static validation
-    updateStaticContent:['staticId', 'staticType', 'data'],
+    updateStaticContent:['staticType', 'data'],
     getStaticContent:['staticType'],
-    deleteStaticContent:['staticId', 'staticType'],
+    deleteStaticContent:['staticType'],
 
     //tank validation
     addTank:['tankName', 'image', 'description'],
@@ -29,6 +31,11 @@ module.exports = {
     addVideo:['title', 'link', 'description'],
     getVideoDetail:['videoId'],
     deleteVideo:['videoId'],
-    editVideoDetail:['videoId']
+    editVideoDetail:['videoId'],
+
+    //garage validation
+    getGarage:['garageType'],
+    updateGarage:['garageType', 'data'],
+    deleteGarage:['garageType']
 
 }

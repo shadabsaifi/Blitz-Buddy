@@ -17,6 +17,8 @@ var TankSchema = new Schema({
         type:String
     }
 
+}, {
+    timestamps:true
 })
 
 TankSchema.plugin(mongoosePaginate);

@@ -17,6 +17,8 @@ var VideoSchema = new Schema({
         type:String
     }
 
+}, {
+    timestamps:true
 })
 
 VideoSchema.plugin(mongoosePaginate);

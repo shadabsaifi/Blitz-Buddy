@@ -1,6 +1,10 @@
 module.exports =  {
   
   INTERNAL_SERVER_ERROR:"Internal server error.",
+  INVALID_REQUEST_TYPE:"request not found",
+  USER_SUCCESSFULLY_DELETE:"You have successfully deleted this user",
+  USER_SUCCESSFULLY_BLOCK:"You have successfully block this user",
+  USER_SUCCESSFULLY_UNBLOCK:"You have successfully unblock this user",
 
   ADMIN_NOT_EXISTS:"Admin does't exists.",
   USER_NOT_EXISTS:"User does't exists.",
@@ -39,5 +43,10 @@ module.exports =  {
   VIDEO_NOT_EXISTS:"Video does't exists.",
   VIDEO_SUCCESSFULLY_DELETED:"Video successfully deleted.",
   VIDEO_SUCCESSFULLY_UPDATE:"Video successfully update.",
+
+  // Garage message
+  GARAGE_SUUCCESSFULLY_DELETED:"Garage successfully deleted.",
+  GARAGE_NOT_FOUND:"Garage not found.",
+  GARAGE_SUCCESSFULLY_UPDATED:"Garage successfully updated.",
   
 }

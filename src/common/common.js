@@ -13,13 +13,19 @@ cloudinary.config({
     api_secret: config.cloud.api_secret
 });
 
+// fcm  for send notification through device token
+var FCM = require('fcm-node');
+var serverKey = 'AAAAyCiHlQQ:APA91bGk90THJkD7Bu603_lEIkzEb4uw2_xounite7_UrRxKtWUxvWLHNY7R-QH8OVG3_AKKqSdrfxGBRJA1OHlU37MK_MI6hPM-6l22XIK0U-A3NAsInmjNWUCnPJAe8U-1QNfnsEEL';
+var fcm = new FCM(serverKey);
+
 let response = (res, code, msg, result)=>{
     
     return res.json({
+
         responseCode:code,
         responseMessage:msg,
         result:result
-    })
+    });
 }
 
 let checkKeyExist = (req, arr)=>{
@@ -137,6 +143,31 @@ let getLatLong = (place, callback) => {
    
 }
 
+let notification = (token, cb)=>{
+
+    var message = {
+        to: token,
+        collapse_key: 'YOUR_COLLAPSE_KEY',
+        notification: {
+            title: 'Title of your push notification', 
+            body: 'Body of your push notification' 
+        },
+        data: {  //you can send only notification or only data(or include both)
+            my_key: 'my value',
+            my_another_key: 'my another value'
+        }
+    };
+    fcm.send(message, (err, response)=>{
+        if (err) {
+            cb(err)
+            console.log("Something has gone wrong!", err);
+        } else {
+            cb(null, response)
+            console.log("Successfully sent with response: ", response);
+        }
+    });
+}
+
 module.exports = {
 
     checkKeyExist,
@@ -147,6 +178,7 @@ module.exports = {
     sendEmail,
     imageUploadToCoudinary,
     uploadMultipleImages,
-    getLatLong
+    getLatLong,
+    notification
     
 }

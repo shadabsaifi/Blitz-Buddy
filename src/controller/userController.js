@@ -232,6 +232,7 @@ let resetPassword = (req, res)=>{
 
 
 let getUserDetail = (req, res)=>{
+
     let { userId } = req.body;
     let given = { userId };
     common.checkKeyExist(given, fields.getUserDetail)
@@ -245,10 +246,10 @@ let getUserDetail = (req, res)=>{
                     return common.response(res, code.EVERYTHING_IS_OK, message.SUCCESS, user);
                 else
                     return common.response(res, code.NOT_FOUND, message.USER_NOT_EXISTS);
+            }, err=>{
+                return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
             })
         }
-    }, err=>{
-        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
     })
     .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 }
@@ -282,10 +283,89 @@ let editUserProfile = (req, res)=>{
                 }
             })
         }
-    }, err=>{
-        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
     })
     .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR, err)})
+}
+
+
+let getAllUser = (req, res)=>{
+    let { page } = req.query;
+    let query = { status:"ACTIVE" }
+    let options = { 
+        page:page || 1,
+        limit:10,
+        sort:{ created:-1 }
+    }
+    User.paginate(query, options)
+    .then((result) => {
+        return common.response(res, code.EVERYTHING_IS_OK, message.SUCCESS, result);
+    }, err=>{
+        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
+    });
+}
+
+let blockUnblockUser = (req, res)=>{
+    let { userId, requestType } = req.body;
+    let given  = { userId, requestType };
+    common.checkKeyExist(given, fields.blockUnblockUser)
+    .then(result=>{
+        if(result.length)
+            return common.response(res, code.KEY_MISSING, result[0]);
+        else{
+            if(requestType == 'block' || requestType == 'unblock'){
+                let options = { status:(requestType == 'block') ? 'BLOCKED':'ACTIVE' };
+                User.findByIdAndUpdate(userId, options, { new:true })
+                .then((success) => {
+                    var msg = ""
+                    if(requestType == 'block')
+                        msg = message.USER_SUCCESSFULLY_BLOCK;
+                    else
+                        msg = message.USER_SUCCESSFULLY_UNBLOCK;
+                    return common.response(res, code.EVERYTHING_IS_OK, msg);
+                }, err=>{
+                    return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
+                })
+            }
+            else
+                return common.response(res, code.NOT_FOUND, message.INVALID_REQUEST_TYPE);
+        }
+    })
+    .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
+}
+
+let deleteUser = (req, res)=>{
+    
+    let { userId, requestType } = req.body;
+    let given  = { userId, requestType };
+    common.checkKeyExist(given, fields.deleteUser)
+    .then(result=>{
+        if(result.length)
+            return common.response(res, code.KEY_MISSING, result[0]);
+        else{
+            if(requestType == 'delete'){
+                User.remove({ _id:userId })
+                .then((success) => {
+                    return common.response(res, code.EVERYTHING_IS_OK, message.USER_SUCCESSFULLY_DELETE);
+                }, err=>{
+                    return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
+                })
+            }
+            else
+                return common.response(res, code.NOT_FOUND, message.INVALID_REQUEST_TYPE);
+        }
+    })
+    .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
+}
+
+let notification = (req, res)=>{
+    
+    let { token } = req.body;
+    common.notification(token, (err, result)=>{
+        if(err)
+            return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR, err)
+        else
+            return common.response(res, code.EVERYTHING_IS_OK, message.SUCCESS, result)
+    });
 }
 
 
@@ -298,5 +378,9 @@ module.exports = {
     resendOTP,
     resetPassword,
     getUserDetail,
-    editUserProfile
+    editUserProfile,
+    getAllUser,
+    blockUnblockUser,
+    deleteUser,
+    notification
 }

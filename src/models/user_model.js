@@ -11,13 +11,16 @@ var UserSchema = new Schema({
     email:{ type:String },
     image:{ type:String },
     password:{ type:String },
-    status:{ type:String, enum:['ACTIVE', 'INACTIVE'], default:"INACTIVE" },
+    status:{ type:String, enum:['ACTIVE', 'INACTIVE', 'BLOCKED'], default:"INACTIVE" },
     otp:{ type:Number },
     secureKey:{ type:String }
-})
+}, {
+    timestamps:true
+});
 
 UserSchema.plugin(mongoosePaginate);
 
 var User = mongoose.model('user', UserSchema, 'user');
 
 module.exports = User;
+

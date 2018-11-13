@@ -12,6 +12,8 @@ var adminSchema = new Schema({
     secureKey:{ type:String }
     
 
+}, {
+    timestamps:true
 })
 
 var adminModel = mongoose.model('admin', adminSchema, 'admin');

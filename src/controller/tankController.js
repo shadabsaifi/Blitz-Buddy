@@ -38,8 +38,6 @@ let addTank = (req, res)=>{
                     return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR) 
                 })
         }
-    }, err=>{
-        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
     })
     .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 }
@@ -83,8 +81,6 @@ let getTankDetail = (req, res)=>{
                 return common.response(res, code.NOT_FOUND, message.INTERNAL_SERVER_ERROR)
             })
         }
-    }, err=>{
-        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
     })
     .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 }
@@ -108,8 +104,6 @@ let deleteTank = (req, res)=>{
                 return common.response(res, code.NOT_FOUND, message.INTERNAL_SERVER_ERROR, err)
             })
         }
-    }, err=>{
-        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
     })
     .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 }
@@ -153,8 +147,6 @@ let editTankDetail = (req, res)=>{
                 return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR,err)
             })
         }
-    }, err=>{
-        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
     })
     .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 }

@@ -3,6 +3,7 @@ var code = require('../common/responseCode');
 var message = require('../common/responseMessage');
 var fields = require('../common/required');
 var Admin = require('../models/admin_model');
+var User = require('../models/user_model');
 
 
 let getAdminDetail = (req, res)=>{
@@ -24,11 +25,8 @@ let getAdminDetail = (req, res)=>{
                 return common.response(res, code.NOT_FOUND, message.INTERNAL_SERVER_ERROR)
             })
         }
-    }, err=>{
-        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
     })
-    .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
-
+    .catch((err)=>{ return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 
 }   
 
@@ -61,15 +59,17 @@ let editAdminProfile = (req, res)=>{
                 }
             })
         }
-    }, err=>{
-        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
     })
-    .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
+    .catch((err)=>{ return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 }
+
+
+
 
 
 module.exports = {
 
     getAdminDetail,
-    editAdminProfile
+    editAdminProfile,
+    
 }

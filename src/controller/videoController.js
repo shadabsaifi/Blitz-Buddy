@@ -32,8 +32,6 @@ let addVideo = (req, res)=>{
                     return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR) 
                 })
         }
-    }, err=>{
-        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
     })
     .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 }
@@ -77,8 +75,6 @@ let getVideoDetail = (req, res)=>{
                 return common.response(res, code.NOT_FOUND, message.INTERNAL_SERVER_ERROR)
             })
         }
-    }, err=>{
-        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
     })
     .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 }
@@ -102,8 +98,6 @@ let deleteVideo = (req, res)=>{
                 return common.response(res, code.NOT_FOUND, message.INTERNAL_SERVER_ERROR, err)
             })
         }
-    }, err=>{
-        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
     })
     .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 }
@@ -137,8 +131,6 @@ let editVideoDetail = (req, res)=>{
                 return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)
             })
         }
-    }, err=>{
-        return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
     })
     .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 }
