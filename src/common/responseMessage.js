@@ -5,6 +5,10 @@ module.exports =  {
   USER_SUCCESSFULLY_DELETE:"You have successfully deleted this user",
   USER_SUCCESSFULLY_BLOCK:"You have successfully block this user",
   USER_SUCCESSFULLY_UNBLOCK:"You have successfully unblock this user",
+  OLD_PASSWORD_NOT_MATCH:"Old password not match.",
+  EMAIL_SEND:"A reset password Link sent on your registered email id.",
+  EMAIL_ERROR:"Error while sending email.",
+  INVALID_URL:"Ohh o sorry invaid Link.",
 
   ADMIN_NOT_EXISTS:"Admin does't exists.",
   USER_NOT_EXISTS:"User does't exists.",
@@ -48,5 +52,8 @@ module.exports =  {
   GARAGE_SUUCCESSFULLY_DELETED:"Garage successfully deleted.",
   GARAGE_NOT_FOUND:"Garage not found.",
   GARAGE_SUCCESSFULLY_UPDATED:"Garage successfully updated.",
+
+  // notification
+  NOTIFICATION_SUCCESSFULLY_SEND:"Notification successfully sent."
   
 }

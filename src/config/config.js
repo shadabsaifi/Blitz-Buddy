@@ -8,8 +8,10 @@ module.exports  =   {
         number:"(855) 572-8559"
     },
     nodemailer:{
-        pass: "sxd328shubham",
-        user: "nj7870@gmail.com"
+        // pass: "sxd328shubham",
+        // user: "nj7870@gmail.com"
+        pass:"Shadab3@6@",
+        user:"shadabsaifi03@gmail.com"
     },
     cloud:{
         cloud_name:"dvflctxao",

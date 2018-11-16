@@ -10,6 +10,8 @@ var UserSchema = new Schema({
     phone:{ type:String },
     email:{ type:String },
     image:{ type:String },
+    deviceType:{ type:String, enum:['ANDROID', 'IOS'] }, 
+    deviceToken:{ type:String },
     password:{ type:String },
     status:{ type:String, enum:['ACTIVE', 'INACTIVE', 'BLOCKED'], default:"INACTIVE" },
     otp:{ type:Number },

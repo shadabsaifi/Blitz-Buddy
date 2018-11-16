@@ -6,11 +6,17 @@ var userController = require('../controller/userController');
 var videoController = require('../controller/videoController');
 var garageController = require('../controller/garageController');
 var quesAnsController = require('../controller/quesAnsController');
+var notificationController = require('../controller/notificationController');
 
 
 // adminController
+adminRouter.post('/login', adminController.login);
+adminRouter.post('/forgotPassword', adminController.forgotPassword);
+adminRouter.post('/verifySecureKey', adminController.verifySecureKey);
+adminRouter.post('/resetPassword', adminController.resetPassword);
+adminRouter.post('/changePassword', adminController.changePassword);
 adminRouter.post('/editAdminProfile', adminController.editAdminProfile);
-adminRouter.get('/getAdminDetail', adminController.getAdminDetail);
+adminRouter.get('/getAdminDetail', adminController.verifyToken, adminController.getAdminDetail);
 
 // userController
 adminRouter.get('/getAllUser', userController.getAllUser);
@@ -44,5 +50,8 @@ adminRouter.post('/deleteGarage', garageController.deleteGarage);
 
 // quesAnsController
 adminRouter.get('/getAllQuestion', quesAnsController.getAllQuestion);
+
+// notificationController
+adminRouter.post('/sendNotification', notificationController.sendNotification);
 
 module.exports = adminRouter;

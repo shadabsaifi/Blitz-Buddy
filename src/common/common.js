@@ -13,6 +13,8 @@ cloudinary.config({
     api_secret: config.cloud.api_secret
 });
 
+var jwt = require('jsonwebtoken');
+
 // fcm  for send notification through device token
 var FCM = require('fcm-node');
 var serverKey = 'AAAAyCiHlQQ:APA91bGk90THJkD7Bu603_lEIkzEb4uw2_xounite7_UrRxKtWUxvWLHNY7R-QH8OVG3_AKKqSdrfxGBRJA1OHlU37MK_MI6hPM-6l22XIK0U-A3NAsInmjNWUCnPJAe8U-1QNfnsEEL';
@@ -44,6 +46,26 @@ let checkKeyExist = (req, arr)=>{
 			}
 		});
     })
+}
+
+let createToken = (data, cb)=>{
+
+    jwt.sign(data, 'secret', (err, token)=>{
+        if(token)
+            cb(null, token)
+        else
+            cb(err);
+    });
+}
+
+let decodeToken = (token, cb)=>{
+
+    jwt.verify(token, 'secret', (err, decoded)=>{
+        if(err)
+            cb(err)
+        else
+            cb(null, decoded)
+    });
 }
 
 
@@ -81,7 +103,7 @@ let sendOTP = (verification_code, countryCode, sendTo)=>{
     });
 }
 
-let sendEmail = (email, subject, message, otp, cc, bcc, callback) => {
+let sendEmail = (email, subject, message, link, cc, bcc, cb) => {
     transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: config.nodemailer
@@ -91,17 +113,17 @@ let sendEmail = (email, subject, message, otp, cc, bcc, callback) => {
         to: email,
         subject: subject,
         text: message,//"A sentence just to check the nodemailer",
-        html: "Your One Time Passsword is   " +otp+"  please enter this otp to reset your password",//"Click on this link to <a href=" + link + ">reset Password</a>",
+        html: "Click on this link to <a href=" + link + ">Click Here</a>",
         cc:cc,
         bcc:bcc
     }
     transporter.sendMail(messageObj, (err, info) => {
         if (err) {
+            cb(err)
             console.log("Error occured", err)
-            callback(null);
         } else {
+            cb(null, "success");
             console.log("Mail sent")
-            callback("Mail sent.")
         }
     })
 }
@@ -143,7 +165,7 @@ let getLatLong = (place, callback) => {
    
 }
 
-let notification = (token, cb)=>{
+let notification = (token)=>{
 
     var message = {
         to: token,
@@ -172,6 +194,8 @@ module.exports = {
 
     checkKeyExist,
     response,
+    createToken,
+    decodeToken,
     createHash,
     compareHash,
     sendOTP,

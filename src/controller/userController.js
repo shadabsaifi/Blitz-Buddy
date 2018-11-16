@@ -7,8 +7,8 @@ var constant = require('../common/constant');
 var randomstring = require("randomstring");
 
 let signup = (req, res)=>{
-    let { fullName, countryCode, phone, email, password, image } = req.body;
-    let given = { fullName, countryCode, phone, email, password };
+    let { fullName, countryCode, phone, email, password, image, deviceType, deviceToken } = req.body;
+    let given = { fullName, countryCode, phone, email, password, deviceType, deviceToken };
     common.checkKeyExist(given, fields.signup)
     .then(result=>{
         if(result.length)
@@ -296,6 +296,7 @@ let getAllUser = (req, res)=>{
         limit:10,
         sort:{ created:-1 }
     }
+
     User.paginate(query, options)
     .then((result) => {
         return common.response(res, code.EVERYTHING_IS_OK, message.SUCCESS, result);
@@ -357,17 +358,6 @@ let deleteUser = (req, res)=>{
     .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 }
 
-let notification = (req, res)=>{
-    
-    let { token } = req.body;
-    common.notification(token, (err, result)=>{
-        if(err)
-            return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR, err)
-        else
-            return common.response(res, code.EVERYTHING_IS_OK, message.SUCCESS, result)
-    });
-}
-
 
 module.exports = {
     
@@ -381,6 +371,5 @@ module.exports = {
     editUserProfile,
     getAllUser,
     blockUnblockUser,
-    deleteUser,
-    notification
+    deleteUser
 }
