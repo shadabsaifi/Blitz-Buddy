@@ -16,12 +16,11 @@ adminRouter.post('/verifySecureKey', adminController.verifySecureKey);
 adminRouter.post('/resetPassword', adminController.resetPassword);
 adminRouter.post('/changePassword', adminController.changePassword);
 adminRouter.post('/editAdminProfile', adminController.editAdminProfile);
-adminRouter.get('/getAdminDetail', adminController.verifyToken, adminController.getAdminDetail);
+adminRouter.get('/getAdminDetail', adminController.getAdminDetail);
 
 // userController
-adminRouter.get('/getAllUser', userController.getAllUser);
-adminRouter.post('/blockUnblockUser', userController.blockUnblockUser);
-adminRouter.post('/deleteUser', userController.deleteUser);
+adminRouter.post('/getAllUser', userController.getAllUser);
+adminRouter.post('/actionOnUser', userController.actionOnUser);
 adminRouter.post('/getUserDetail', userController.getUserDetail);
 
 // staticController

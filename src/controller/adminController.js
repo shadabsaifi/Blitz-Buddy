@@ -27,9 +27,6 @@ let login = (req, res)=>{
                         if(isMatch){
                             common.createToken({ _id:admin._id, email }, (err, token)=>{
                                 if(token){
-                                    console.log('====================================');
-                                    console.log(token);
-                                    console.log('====================================');
                                     let { _id } = admin;
                                     let data = { _id, token }
                                     return common.response(res, code.EVERYTHING_IS_OK, message.SUCCESSFULLY_LOGIN, data);
@@ -54,16 +51,7 @@ let login = (req, res)=>{
 let verifyToken = (req, res, next)=>{
 
     let { authorization } = req.headers;
-    console.log('====================================');
-    console.log(authorization);
-    console.log('====================================');
     common.decodeToken(authorization, (err, decoded)=>{
-        console.log('====================================');
-        console.log(err);
-        console.log('====================================');
-        console.log('====================================');
-        console.log(decoded);
-        console.log('====================================');
         if(err)
             return common.response(res, code.UNAUTHORIZED,  "Invalid token.");
         else

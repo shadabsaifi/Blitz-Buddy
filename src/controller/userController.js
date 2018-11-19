@@ -289,14 +289,17 @@ let editUserProfile = (req, res)=>{
 
 
 let getAllUser = (req, res)=>{
-    let { page } = req.query;
-    let query = { status:"ACTIVE" }
+    let { page, search } = req.body;
+    let query = { status:{ $ne:"INACTIVE" } }
     let options = { 
         page:page || 1,
         limit:10,
         sort:{ created:-1 }
     }
-
+    if(search){
+        let re = { $regex:search, $options:'i' }
+        query.$or = [{fullName:re }, { email:re }, { phone:re }]
+    }
     User.paginate(query, options)
     .then((result) => {
         return common.response(res, code.EVERYTHING_IS_OK, message.SUCCESS, result);
@@ -305,7 +308,7 @@ let getAllUser = (req, res)=>{
     });
 }
 
-let blockUnblockUser = (req, res)=>{
+let actionOnUser = (req, res)=>{
     let { userId, requestType } = req.body;
     let given  = { userId, requestType };
     common.checkKeyExist(given, fields.blockUnblockUser)
@@ -327,23 +330,7 @@ let blockUnblockUser = (req, res)=>{
                     return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)     
                 })
             }
-            else
-                return common.response(res, code.NOT_FOUND, message.INVALID_REQUEST_TYPE);
-        }
-    })
-    .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
-}
-
-let deleteUser = (req, res)=>{
-    
-    let { userId, requestType } = req.body;
-    let given  = { userId, requestType };
-    common.checkKeyExist(given, fields.deleteUser)
-    .then(result=>{
-        if(result.length)
-            return common.response(res, code.KEY_MISSING, result[0]);
-        else{
-            if(requestType == 'delete'){
+            else if(requestType == 'delete'){
                 User.remove({ _id:userId })
                 .then((success) => {
                     return common.response(res, code.EVERYTHING_IS_OK, message.USER_SUCCESSFULLY_DELETE);
@@ -358,7 +345,6 @@ let deleteUser = (req, res)=>{
     .catch(err=> { return common.response(res, code.INTERNAL_SERVER_ERROR, message.INTERNAL_SERVER_ERROR)})
 }
 
-
 module.exports = {
     
     signup,
@@ -370,6 +356,5 @@ module.exports = {
     getUserDetail,
     editUserProfile,
     getAllUser,
-    blockUnblockUser,
-    deleteUser
+    actionOnUser
 }
